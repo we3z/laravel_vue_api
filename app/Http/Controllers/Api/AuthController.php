@@ -23,12 +23,12 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required|string',
+            'name' => 'required|string',
             'password' => 'required|string',
             'remember_me' => 'boolean'
         ]);
 
-        $credentials = request(['username', 'password']);
+        $credentials = request(['name', 'password']);
 
         if(!Auth::attempt($credentials))
             return response()->json([

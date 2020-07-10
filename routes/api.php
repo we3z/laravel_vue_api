@@ -13,9 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::namespace('Api')->group(function() {
+Route::namespace('Api')->prefix('/private/v1/')->group(function() {
     Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signup');
     Route::group([
         'middleware' => 'auth:api'
     ], function () {

@@ -11,39 +11,6 @@ use App\Http\Controllers\Controller;
 class AuthController extends Controller
 {
     /**
-     * Create user
-     *
-     * @param  [string] name
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [string] password_confirmation
-     * @return [string] message
-     */
-    public function signup(Request $request)
-    {
-//        $request->validate([
-//            'name' => 'required|string',
-//            'email' => 'required|string|email|unique:users',
-//            'password' => 'required|string|confirmed'
-//        ]);
-
-        $user = new User([
-//            'name' => $request->name,
-//            'email' => $request->email,
-//            'password' => bcrypt($request->password),
-            'name' => 'admin',
-            'email' => 'we3z2020@163.com',
-            'password' => bcrypt('123456')
-        ]);
-
-        $user->save();
-
-        return response()->json([
-            'message' => 'Successfully created user!'
-        ], 201);
-    }
-
-    /**
      * Login user and create token
      *
      * @param  [string] email
@@ -56,12 +23,12 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email',
+            'username' => 'required|string',
             'password' => 'required|string',
             'remember_me' => 'boolean'
         ]);
 
-        $credentials = request(['email', 'password']);
+        $credentials = request(['username', 'password']);
 
         if(!Auth::attempt($credentials))
             return response()->json([

@@ -118,7 +118,7 @@ class ManagerService
      */
     public function changeAdminUserState($param)
     {
-        $userData = User::query()->get($param['uid']);
+        $userData = User::query()->find($param['uid'])->toArray();
         if (empty($userData)) {
             return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$CHANGE_USER_STATUS_ERROR_USER_DATA, 'data' => []];
         }

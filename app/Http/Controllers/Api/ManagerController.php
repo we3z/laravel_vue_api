@@ -74,12 +74,11 @@ class ManagerController extends BaseController
         return $this->jsonReturnElse($data);
     }
 
-    public function changeAdminUserState(Request $request, ManagerService $managerService)
+    public function changeAdminUserState($uid, $type, ManagerService $managerService)
     {
-        var_dump($request);die;
-        $param = $request->all(['uid', 'type']);
+        $param = ['uid' => $uid, 'type' => (boolean)$type];
         // 验证数据
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($param, [
             'uid' => 'required|integer',
             'type' => 'required|boolean',
         ], [

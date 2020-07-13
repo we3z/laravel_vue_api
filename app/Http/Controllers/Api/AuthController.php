@@ -19,6 +19,8 @@ class AuthController extends BaseController
      */
     public function login(Request $request, ManagerService $managerService)
     {
+        header('Access-Control-Allow-Origin:*');//允许所有来源访问
+        header('Access-Control-Allow-Method:POST,GET,DELETE,PUT,PATCH');//允许访问的方式
         // 验证数据
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',

@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-use App\Model\User;
-use App\Http\Controllers\Controller;
-
-class AuthController extends Controller
+use App\Service\ManagerService;
+use Illuminate\Support\Facades\Validator;
+use App\ApiConst\BaseConst;
+class AuthController extends BaseController
 {
     /**
      * Login user and create token
@@ -20,61 +19,23 @@ class AuthController extends Controller
      * @return [string] token_type
      * @return [string] expires_at
      */
-    public function login(Request $request)
+    public function login(Request $request, ManagerService $managerService)
     {
-        $request->validate([
-            'username' => 'required|string',
+        // 验证数据
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
             'password' => 'required|string',
-            'remember_me' => 'boolean'
+        ], [
+            'email.required' => BaseConst::$LOGIN_NO_EMAIL_MSG,
+            'email.string' => BaseConst::$LOGIN_EMAIL_TYPE_MSG,
+            'email.email' => BaseConst::$LOGIN_EMAIL_FORMAT_MSG,
+            'password.required' => BaseConst::$LOGIN_NO_PASSWORD_MSG,
+            'password.string' => BaseConst::$LOGIN_PASSWORD_TYPE_MSG,
         ]);
-
-        $credentials = request(['username', 'password']);
-
-        if(!Auth::attempt($credentials))
-            return response()->json([
-                'message' => 'Unauthorized'
-            ], 401);
-
-        $user = $request->user();
-
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
-
-        if ($request->remember_me)
-            $token->expires_at = Carbon::now()->addWeeks(1);
-
-        $token->save();
-
-        return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse(
-                $tokenResult->token->expires_at
-            )->toDateTimeString()
-        ]);
-    }
-
-    /**
-     * Logout user (Revoke the token)
-     *
-     * @return [string] message
-     */
-    public function logout(Request $request)
-    {
-        $request->user()->token()->revoke();
-
-        return response()->json([
-            'message' => 'Successfully logged out'
-        ]);
-    }
-
-    /**
-     * Get the authenticated User
-     *
-     * @return [json] user object
-     */
-    public function user(Request $request)
-    {
-        return response()->json($request->user());
+        if ($validator->fails()) {
+            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first(), []);
+        }
+        $data = $managerService->loginAndGetToken();
+        return $this->jsonReturn($data['code'], $data['msg'], $data['data']);
     }
 }

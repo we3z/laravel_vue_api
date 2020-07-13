@@ -18,6 +18,8 @@ Route::namespace('Api')->prefix('/private/v1/')->group(function() {
     Route::group([
         'middleware' => 'auth:api'
     ], function () {
+        Route::get('users', 'ManagerController@getAdminUserList');
+
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
     });

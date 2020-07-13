@@ -24,4 +24,8 @@ class BaseConst
     public static $LOGIN_PASSWORD_TYPE_MSG = '登录密码类型不正确';
 
 
+    // 权限相关接口
+    public static $PERMISSION_ERROR_NO_MENU_DATA = '没有菜单数据';
+    public static $PERMISSION_SUCCESS_GET_MENU_DATA = '菜单数据获取成功';
+
 }

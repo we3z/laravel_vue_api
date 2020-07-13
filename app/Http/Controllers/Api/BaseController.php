@@ -9,6 +9,12 @@ use App\ApiConst\BaseConst;
 
 class BaseController extends Controller
 {
+    public function __construct()
+    {
+        header('Access-Control-Allow-Origin:*');//允许所有来源访问
+        header('Access-Control-Allow-Method:POST,GET,DELETE,PUT,PATCH');//允许访问的方式
+    }
+
     /**
      * @auther zlq
      * @create_time 2020/7/13 8:49
@@ -30,4 +36,22 @@ class BaseController extends Controller
         return response()->json($response);
     }
 
+    /**
+     * @auther zlq
+     * @create_time 2020/7/13 14:56
+     * @description json格式返回数据
+     * @param array $data
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function jsonReturnElse($data = [])
+    {
+        $response = [
+            'meta' => [
+                'status' => $data['code'],
+                'msg' => $data['msg']
+            ],
+            'data' => $data['data'],
+        ];
+        return response()->json($response);
+    }
 }

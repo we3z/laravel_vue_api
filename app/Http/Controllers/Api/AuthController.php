@@ -10,14 +10,12 @@ use App\ApiConst\BaseConst;
 class AuthController extends BaseController
 {
     /**
-     * Login user and create token
-     *
-     * @param  [string] email
-     * @param  [string] password
-     * @param  [boolean] remember_me
-     * @return [string] access_token
-     * @return [string] token_type
-     * @return [string] expires_at
+     * @auther zlq
+     * @create_time 2020/7/13 11:41
+     * @description 用户登录接口
+     * @param Request $request
+     * @param ManagerService $managerService
+     * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request, ManagerService $managerService)
     {

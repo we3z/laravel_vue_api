@@ -49,4 +49,45 @@ class RoleService
         }
         return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$ROLE_SUCCESS_RESULT, 'data' => $all];
     }
+
+    /**
+     * @description 添加新的权限
+     * @User: zlq
+     * @Datetime: 2020/7/14 20:04
+     * @param $param
+     * @return array
+     */
+    public function addRole($param)
+    {
+        $role = new Role([
+            'role_name' => $param['roleName'],
+            'role_desc' => $param['roleDesc']
+        ]);
+        $result = $role->save();
+        if ($result) {
+            $data = $role->toArray();
+            return ['code' => BaseConst::$HTTP_SUCCESS_CREATE_CODE, 'msg' =>BaseConst::$ROLE_ADD_SUCCESS_RESULT,  'data' => $data];
+        }
+         return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' =>BaseConst::$ROLE_ADD_ERROR_RESULT,  'data' => []];
+    }
+
+    /**
+     * @description 根据角色ID查询角色详情
+     * @User: zlq
+     * @Datetime: 2020/7/14 21:21
+     * @param $param
+     * @return array
+     */
+    public function getRoleInfo($param)
+    {
+        $role = Role::query()
+            ->select('role_id as roleId', 'role_name as roleName', 'role_desc as roleDesc')
+            ->find($param['id'])->toArray();
+        if (empty($role)) {
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' =>
+                BaseConst::$ROLE_GET_INFO_ERROR_RESULT, 'data' => []];
+        }
+        return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' =>
+            BaseConst::$ROLE_GET_INFO_SUCCESS_RESULT, 'data' => $role];
+    }
 }

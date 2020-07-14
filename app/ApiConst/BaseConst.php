@@ -81,5 +81,23 @@ class BaseConst
     public static $PERMISSION_ERROR_NO_MENU_DATA = '没有菜单数据';
     public static $PERMISSION_SUCCESS_GET_MENU_DATA = '菜单数据获取成功';
     /** 角色相关 **/
+    // 获取角色列表
     public static $ROLE_SUCCESS_RESULT = '角色列表获取成功';
+    // 添加新角色
+    public static $ROLE_ADD_ERROR_NO_AUTH_NAME = '参数不正确,缺少权限名称';
+    public static $ROLE_ADD_ERROR_AUTH_NAME_FORMAT = '参数权限名称格式不正确';
+    public static $ROLE_ADD_ERROR_AUTH_NAME_MIN = '参数权限名称长度在3到25之间';
+    public static $ROLE_ADD_ERROR_AUTH_NAME_MAX = '参数权限名称长度在3到25之间';
+    public static $ROLE_ADD_ERROR_AUTH_NAME_UNIQUE = '参数权限名称长度在3到25之间';
+    public static $ROLE_ADD_ERROR_NO_AUTH_DESC = '参数不正确,缺少权限描述';
+    public static $ROLE_ADD_ERROR_AUTH_DESC_FORMAT = '参数权限描述格式不正确';
+    public static $ROLE_ADD_ERROR_AUTH_DESC_MIN = '参数权限描述长度在3到25之间';
+    public static $ROLE_ADD_ERROR_AUTH_DESC_MAX = '参数权限描述长度在3到25之间';
+    public static $ROLE_ADD_ERROR_RESULT = '新增角色失败,请重试';
+    public static $ROLE_ADD_SUCCESS_RESULT = '新增角色成功';
+    // 查询角色
+    public static $ROLE_GET_INFO_ERROR_NO_ID = '参数不正确,缺少角色ID';
+    public static $ROLE_GET_INFO_ERROR_ID_FORMAT = '参数角色ID格式不正确';
+    public static $ROLE_GET_INFO_ERROR_RESULT = '角色查询失败,请重试';
+    public static $ROLE_GET_INFO_SUCCESS_RESULT = '角色查询成功';
 }

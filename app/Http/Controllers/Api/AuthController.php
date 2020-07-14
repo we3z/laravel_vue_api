@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use App\Service\ManagerService;
 use Illuminate\Support\Facades\Validator;

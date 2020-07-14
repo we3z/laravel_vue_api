@@ -40,7 +40,12 @@ Route::namespace('Api')->prefix('/private/v1/')->group(function() {
         Route::get('rights/{type}', 'PermissionController@getPermissionList');
         Route::get('menus', 'PermissionController@getLeftMenu');
         /**角色相关**/
+        // 获取角色列表
         Route::get('roles', 'RoleController@getRoleList');
+        // 添加角色
+        Route::post('roles', 'RoleController@addRole');
+        // 查询角色基础信息
+        Route::get('roles/{id}', 'RoleController@getRoleInfo');
     });
 });
 

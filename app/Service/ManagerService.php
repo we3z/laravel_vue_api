@@ -10,10 +10,7 @@ namespace App\Service;
 use App\ApiConst\BaseConst;
 use Carbon\Carbon;
 use App\Model\User;
-use Faker\Provider\Base;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-
 
 class ManagerService
 {
@@ -130,5 +127,82 @@ class ManagerService
             }
         }
         return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$CHANGE_USER_STATUS_SUCCESS_RESULT, 'data' => []];
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/7/14 9:57
+     * @description 获取管理用户信息
+     * @param $param
+     * @return array
+     */
+    public function getAdminUserInfo($param)
+    {
+        $userData = User::query()->find(($param['id']))->toArray();
+        if (empty($userData)) {
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$GET_USER_INFO_ERROR_RESULT, 'data' => []];
+        }
+        $userInfo = [
+            'id' => $userData['id'],
+            'username' => $userData['name'],
+            'role_id' => $userData['role_id'],
+            'mobile' => $userData['mobile'],
+            'email' => $userData['email'],
+        ];
+        return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$GET_USER_INFO_SUCCESS_RESULT, 'data' =>$userInfo];
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/7/14 14:47
+     * @description 编辑用户信息
+     * @param $param
+     * @return array
+     */
+    public function editAdminUserInfo($param)
+    {
+        if (!$param['email'] && !$param['mobile'] ) {
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$EDIT_USER_INFO_ERROR_RESULT, 'data' => []];
+        }
+        $userData = User::query()->find(($param['id']))->toArray();
+        if (empty($userData)) {
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$EDIT_USER_INFO_ERROR_RESULT, 'data' => []];
+        }
+        if (($param['email'] == $userData['email']) && ($param['mobile'] == $userData['mobile'])) {
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$EDIT_USER_INFO_ERROR_RESULT, 'data' => []];
+        }
+        $result = User::query()->where('id', $param['id'])->update(['email' => $param['email'], 'mobile' => $param['mobile']]);
+        if (!$result) {
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$EDIT_USER_INFO_ERROR_RESULT, 'data' => []];
+        }
+        $userData = User::query()->find(($param['id']))->toArray();
+        $userInfo = [
+            'id' => $userData['id'],
+            'username' => $userData['name'],
+            'role_id' => $userData['role_id'],
+            'mobile' => $userData['mobile'],
+            'email' => $userData['email'],
+        ];
+        return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$EDIT_USER_INFO_SUCCESS_RESULT, 'data' => $userInfo];
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/7/14 15:00
+     * @description 删除用户
+     * @param $param
+     * @return array
+     */
+    public function deleteAdminUser($param)
+    {
+        $userData = User::query()->find(($param['id']))->toArray();
+        if (empty($userData)) {
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$DELETE_USER_ERROR_RESULT, 'data' => []];
+        }
+        $result = User::query()->where('id', $param['id'])->delete();
+        if (!$result) {
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$DELETE_USER_ERROR_RESULT, 'data' => []];
+        }
+        return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$DELETE_USER_SUCCESS_RESULT, 'data' => []];
     }
 }

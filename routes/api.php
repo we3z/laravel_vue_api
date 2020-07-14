@@ -28,10 +28,19 @@ Route::namespace('Api')->prefix('/private/v1/')->group(function() {
         Route::post('users', 'ManagerController@addAdminUser');
         // 修改用户状态
         Route::put('users/{uid}/state/{type}', 'ManagerController@changeAdminUserState');
-
+        // 查询用户详情
+        Route::get('users/{id}', 'ManagerController@getAdminUserInfo');
+        // 修改用户信息
+        Route::put('users/{id}', 'ManagerController@editAdminUserInfo');
+        // 删除用户
+        Route::delete('users/{id}', 'ManagerController@deleteAdminUser');
         /**权限相关**/
         // 左侧菜单
+        // 获取所有权限列表
+        Route::get('rights/{type}', 'PermissionController@getPermissionList');
         Route::get('menus', 'PermissionController@getLeftMenu');
+        /**角色相关**/
+        Route::get('roles', 'RoleController@getRoleList');
     });
 });
 

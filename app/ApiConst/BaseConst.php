@@ -50,10 +50,36 @@ class BaseConst
     public static $CHANGE_USER_STATUS_ERROR_USER_DATA = '用户信息不正确';
     public static $CHANGE_USER_STATUS_SUCCESS_RESULT = '用户状态修改成功';
     public static $CHANGE_USER_STATUS_ERROR_RESULT = '用户状态修改失败,请重试';
+    // 查询用户状态
+    public static $GET_USER_INFO_ERROR_NO_ID = '参数不正确,缺少用户ID';
+    public static $GET_USER_INFO_ERROR_ID_FORMAT = '参数用户ID格式不正确';
+    public static $GET_USER_INFO_ERROR_RESULT = '获取用户信息失败,请重试';
+    public static $GET_USER_INFO_SUCCESS_RESULT = '获取用户信息成功';
+    // 修改用户信息
+    public static $EDIT_USER_INFO_ERROR_NO_ID = '参数不正确,缺少用户ID';
+    public static $EDIT_USER_INFO_ERROR_ID_FORMAT = '参数用户ID格式不正确';
+    public static $EDIT_USER_INFO_ERROR_NO_EMAIL = '参数不正确,缺少用户邮箱';
+    public static $EDIT_USER_INFO_ERROR_EMAIL_FORMAT = '参数用户邮箱格式不正确';
+    public static $EDIT_USER_INFO_ERROR_EMAIL_UNIQUE = '参数用户邮箱唯一';
+    public static $EDIT_USER_INFO_ERROR_NO_MOBILE = '参数不正确,缺少用户手机号';
+    public static $EDIT_USER_INFO_ERROR_RESULT = '用户信息编辑失败,请重试';
+    public static $EDIT_USER_INFO_SUCCESS_RESULT = '用户信息编辑成功';
+    // 删除用户
+    public static $DELETE_USER_ERROR_NO_ID = '参数不正确,缺少用户ID';
+    public static $DELETE_USER_ERROR_ID_FORMAT = '参数用户ID格式不正确';
+    public static $DELETE_USER_ERROR_RESULT = '删除用户信息失败,请重试';
+    public static $DELETE_USER_SUCCESS_RESULT = '删除用户信息成功';
 
-
-    // 权限相关接口
+    /** 权限相关接口 **/
+    // 获取权限列表
+    public static $PERMISSION_ERROR_NO_TYPE = '参数不正确,确实type参数';
+    public static $PERMISSION_ERROR_TYPE_FORMAT = '参数type格式不正确';
+    public static $PERMISSION_ERROR_TYPE_USELESS = '参数type值不正确';
+    public static $PERMISSION_ERROR_RESULT = '获取所有权限列表失败，请重试';
+    public static $PERMISSION_SUCCESS_RESULT = '获取所有权限列表成功';
+    // 获取左侧菜单
     public static $PERMISSION_ERROR_NO_MENU_DATA = '没有菜单数据';
     public static $PERMISSION_SUCCESS_GET_MENU_DATA = '菜单数据获取成功';
-
+    /** 角色相关 **/
+    public static $ROLE_SUCCESS_RESULT = '角色列表获取成功';
 }

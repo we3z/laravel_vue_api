@@ -74,6 +74,15 @@ class ManagerController extends BaseController
         return $this->jsonReturnElse($data);
     }
 
+    /**
+     * @auther zlq
+     * @create_time 2020/7/14 9:47
+     * @description 修改管理员用户状态
+     * @param $uid 用户状态
+     * @param $type 修改类型
+     * @param ManagerService $managerService
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function changeAdminUserState($uid, $type, ManagerService $managerService)
     {
         $param = ['uid' => $uid, 'type' => (boolean)$type];
@@ -91,6 +100,92 @@ class ManagerController extends BaseController
             return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first(), []);
         }
         $data = $managerService->changeAdminUserState($param);
+        return $this->jsonReturnElse($data);
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/7/14 9:57
+     * @description 获取管理用户信息
+     * @param $id
+     * @param ManagerService $managerService
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getAdminUserInfo($id, ManagerService $managerService)
+    {
+        $param = ['id' => $id];
+        // 验证数据
+        $validator = Validator::make($param, [
+           'id' => 'required|integer'
+        ], [
+            'id.required' => BaseConst::$GET_USER_INFO_ERROR_NO_ID,
+            'id.integer' => BaseConst::$GET_USER_INFO_ERROR_ID_FORMAT,
+        ]);
+        if ($validator->fails()) {
+            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+        }
+        $data = $managerService->getAdminUserInfo($param);
+        return $this->jsonReturnElse($data);
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/7/14 14:48
+     * @description 编辑用户信息
+     * @param $id 用户ID
+     * @param Request $request
+     * @param ManagerService $managerService
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function editAdminUserInfo($id, Request $request, ManagerService $managerService)
+    {
+        $param = [
+            'id' => $id,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+        ];
+        // 验证数据
+        $validator = Validator::make($param, [
+            'id' => 'required|integer',
+            'email' => 'required|email',
+            'mobile' => 'required',
+        ], [
+            'id.required' => BaseConst::$EDIT_USER_INFO_ERROR_NO_ID,
+            'id.integer' => BaseConst::$EDIT_USER_INFO_ERROR_ID_FORMAT,
+            'email.required' => BaseConst::$EDIT_USER_INFO_ERROR_NO_EMAIL,
+            'email.email' => BaseConst::$EDIT_USER_INFO_ERROR_EMAIL_FORMAT,
+             // 'email.unique' => BaseConst::$EDIT_USER_INFO_ERROR_EMAIL_UNIQUE,
+            'mobile.required' => BaseConst::$EDIT_USER_INFO_ERROR_NO_MOBILE,
+        ]);
+        if ($validator->fails()) {
+            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+        }
+        $data = $managerService->editAdminUserInfo($param);
+        return $this->jsonReturnElse($data);
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/7/14 15:00
+     * @description 删除用户
+     * @param $id
+     * @param ManagerService $managerService
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteAdminUser($id, ManagerService $managerService)
+    {
+        $param = ['id' => $id];
+        // 验证数据
+        $validator = Validator::make($param, [
+            'id' => 'required|integer'
+        ], [
+            'id.required' => BaseConst::$DELETE_USER_ERROR_NO_ID,
+            'id.integer' => BaseConst::$DELETE_USER_ERROR_ID_FORMAT,
+        ]);
+        if ($validator->fails()) {
+            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+        }
+        $data = $managerService->deleteAdminUser($param);
         return $this->jsonReturnElse($data);
     }
 }

@@ -3,7 +3,6 @@ namespace App\Service;
 
 use App\ApiConst\BaseConst;
 use App\Model\Permission;
-use Faker\Provider\Base;
 
 class PermissionService
 {
@@ -50,5 +49,43 @@ class PermissionService
             }
         }
         return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$PERMISSION_SUCCESS_GET_MENU_DATA, 'data' => $parent_box];
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/7/14 15:51
+     * @description 获取权限列表
+     * @param $param
+     * @return array
+     */
+    public function getPermissionList($param)
+    {
+        $list = $this->permissionModel::with(['connectPermissionApi'=>function($query){
+            $query->select('ps_id','ps_api_path');
+        }])->get()->toArray();
+        if (empty($list)) {
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$PERMISSION_ERROR_RESULT, 'data' => []];
+        }
+        $box = [];
+        foreach ($list as $item) {
+            $box[] = [
+                'id' => $item['ps_id'],
+                'authName' => $item['ps_name'],
+                'path' => $item['connect_permission_api']['ps_api_path'],
+                'level' => $item['ps_level'],
+                'pid' =>$item['ps_pid']
+            ];
+        }
+        switch ($param['type']) {
+            case 'list' :
+                return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$PERMISSION_SUCCESS_RESULT, 'data' => $box];
+                break;
+            case 'tree':
+                $new = format_data_tree($box);
+                return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$PERMISSION_SUCCESS_RESULT, 'data' => $new];
+                break;
+            default:
+                return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$PERMISSION_ERROR_RESULT, 'data' => []];
+        }
     }
 }

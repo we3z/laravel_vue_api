@@ -100,4 +100,18 @@ class BaseConst
     public static $ROLE_GET_INFO_ERROR_ID_FORMAT = '参数角色ID格式不正确';
     public static $ROLE_GET_INFO_ERROR_RESULT = '角色查询失败,请重试';
     public static $ROLE_GET_INFO_SUCCESS_RESULT = '角色查询成功';
+    // 编辑角色
+    public static $ROLE_EDIT_ERROR_NO_ID = "参数不正确,缺少角色ID";
+    public static $ROLE_EDIT_ERROR_ID_FORMAT = '参数角色ID格式不正确';
+    public static $ROLE_EDIT_ERROR_NO_NAME= "参数不正确,缺少角色名称";
+    public static $ROLE_EDIT_ERROR_NAME_FORMAT = '参数角色名称格式不正确';
+    public static $ROLE_EDIT_ERROR_DESC_FORMAT = '参数角色描述格式不正确';
+    public static $ROLE_EDIT_ERROR_NO_ROLE = '角色信息不正确';
+    public static $ROLE_EDIT_ERROR_RESULT = '角色编辑失败,请重试';
+    public static $ROLE_EDIT_SUCCESS_RESULT = '角色编辑成功';
+    // 删除角色
+    public static $ROLE_DELETE_ERROR_NO_ID = '参数不正确,缺少角色ID';
+    public static $ROLE_DELETE_ERROR_ID_FORMAT = '参数角色ID格式不正确';
+    public static $ROLE_DELETE_ERROR_RESULT = '角色删除失败,请重试';
+    public static $ROLE_DELETE_SUCCESS_RESULT = '角色删除成功';
 }

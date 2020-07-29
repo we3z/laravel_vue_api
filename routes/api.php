@@ -46,6 +46,10 @@ Route::namespace('Api')->prefix('/private/v1/')->group(function() {
         Route::post('roles', 'RoleController@addRole');
         // 查询角色基础信息
         Route::get('roles/{id}', 'RoleController@getRoleInfo');
+        // 编辑提交角色
+        Route::put('roles/{id}', 'RoleController@updateRole');
+        // 删除角色
+        Route::delete('roles/{id}', 'RoleController@deleteRole');
     });
 });
 

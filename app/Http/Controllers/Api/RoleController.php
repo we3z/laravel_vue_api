@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\Role;
 use App\Service\RoleService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -18,8 +19,7 @@ class RoleController extends BaseController
      */
     public function getRoleList(RoleService $roleService)
     {
-        $data = $roleService->getRoleList();
-        return $this->jsonReturnElse($data);
+        return $this->jsonReturnElse($roleService->getRoleList());
     }
 
     /**
@@ -74,5 +74,58 @@ class RoleController extends BaseController
             return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
         }
         return $this->jsonReturnElse($roleService->getRoleInfo($param));
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/7/29 16:01
+     * @description 修改权限信息
+     * @param $id 权限ID
+     * @param Request $request
+     * @param RoleService $roleService
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateRole($id, Request $request, RoleService $roleService)
+    {
+        $param['id'] = $id;
+        $param['roleName'] = $request->input('roleName');
+        $param['roleDesc'] = $request->input('roleDesc');
+        $validator = Validator::make($param, [
+            'id' => 'required|integer',
+            'roleName' => 'required|string',
+            'roleDesc' => 'string'
+        ], [
+            'id.required' => BaseConst::$ROLE_EDIT_ERROR_NO_ID,
+            'id.integer' => BaseConst::$ROLE_EDIT_ERROR_ID_FORMAT,
+            'roleName.required' => BaseConst::$ROLE_EDIT_ERROR_NO_NAME,
+            'roleName.string' => BaseConst::$ROLE_EDIT_ERROR_NAME_FORMAT,
+            'roleDesc.string' => BaseConst::$ROLE_EDIT_ERROR_DESC_FORMAT,
+        ]);
+        if ($validator->fails()) {
+            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+        }
+        return $this->jsonReturnElse($roleService->updateRole($param));
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/7/29 16:34
+     * @description 删除角色
+     * @param $id 角色ID
+     * @param RoleService $roleService
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteRole($id, RoleService $roleService)
+    {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|integer'
+        ], [
+            'id.required' => BaseConst::$ROLE_DELETE_ERROR_NO_ID,
+            'id.integer' => BaseConst::$ROLE_DELETE_ERROR_ID_FORMAT,
+        ]);
+        if ($validator->fails()) {
+            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+        }
+        return $this->jsonReturnElse($roleService->deleteRole($id));
     }
 }

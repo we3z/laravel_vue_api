@@ -175,6 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // oss文件上传
+        Jacobcyl\AliOSS\AliOssServiceProvider::class,
     ],
 
     /*

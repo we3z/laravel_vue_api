@@ -24,7 +24,7 @@ class RoleService
     public function getRoleList()
     {
         $roleList = Role::query()
-            ->select('role_id as id', 'role_name as roleName', 'role_desc as roleDesc', 'ps_ids')
+            ->select('role_id as id', 'role_id as roleId' ,'role_name as roleName', 'role_desc as roleDesc', 'ps_ids')
             ->get()
             ->toArray();
         if (empty($roleList)) {
@@ -84,10 +84,59 @@ class RoleService
             ->select('role_id as roleId', 'role_name as roleName', 'role_desc as roleDesc')
             ->find($param['id'])->toArray();
         if (empty($role)) {
-            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' =>
-                BaseConst::$ROLE_GET_INFO_ERROR_RESULT, 'data' => []];
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$ROLE_GET_INFO_ERROR_RESULT, 'data' => []];
         }
-        return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' =>
-            BaseConst::$ROLE_GET_INFO_SUCCESS_RESULT, 'data' => $role];
+        return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$ROLE_GET_INFO_SUCCESS_RESULT, 'data' => $role];
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/7/29 16:00
+     * @description 修改权限信息
+     * @param $param 参数
+     * @return array 返回数据
+     */
+    public function updateRole($param)
+    {
+        $role = Role::query()
+            ->find($param['id']);
+        if (empty($role)) {
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$ROLE_EDIT_ERROR_NO_ROLE, 'data' => []];
+        }
+        $res = Role::query()
+            ->where('role_id', $param['id'])
+            ->update([
+                'role_name' => $param['roleName'],
+                'role_desc' => $param['roleDesc']
+            ]);
+        if ($res) {
+            $param['roleId'] = $param['id'];
+            return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$ROLE_EDIT_SUCCESS_RESULT, 'data' => $param];
+        } else {
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$ROLE_EDIT_ERROR_RESULT, 'data' => []];
+        }
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/7/29 16:34
+     * @description 删除角色
+     * @param int $id 角色ID
+     * @return array
+     */
+    public function deleteRole(int $id)
+    {
+        $role = Role::query()->find($id);
+        if (empty($role)) {
+            return  ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$ROLE_DELETE_SUCCESS_RESULT, 'data' => []];
+        }
+        $res = Role::query()
+            ->where('role_id', $id)
+            ->delete();
+        if ($res) {
+            return  ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$ROLE_DELETE_SUCCESS_RESULT, 'data' => []];
+        } else {
+            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$ROLE_DELETE_ERROR_RESULT, 'data' => []];
+        }
     }
 }

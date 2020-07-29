@@ -15,3 +15,6 @@ Route::get('/', function () {
     phpinfo();die;
     return view('welcome');
 });
+
+Route::get('/demo/upload', 'Home\DemoController@upload');
+Route::post('/demo/save', 'Home\DemoController@uploadSave');

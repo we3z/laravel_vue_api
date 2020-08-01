@@ -162,7 +162,7 @@ class ManagerController extends BaseController
      * @auther zlq
      * @create_time 2020/7/14 15:00
      * @description 删除用户
-     * @param $id
+     * @param $id 用户ID
      * @param ManagerService $managerService
      * @return \Illuminate\Http\JsonResponse
      */
@@ -182,6 +182,15 @@ class ManagerController extends BaseController
         return $this->jsonReturnElse($managerService->deleteAdminUser($param));
     }
 
+    /**
+     * @auther zlq
+     * @create_time 2020/8/1 15:56
+     * @description 用户分配角色
+     * @param $id 用户ID
+     * @param Request $request
+     * @param ManagerService $managerService
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function allowAdminUserRole($id, Request $request, ManagerService $managerService)
     {
         $roleId = $request->input('rid');

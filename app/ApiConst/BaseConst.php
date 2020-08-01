@@ -145,4 +145,11 @@ class BaseConst
     const ROLE_ALLOW_RIGHT_ERROR_RESULT = '角色分配权限失败,请重试';
     const ROLE_ALLOW_RIGHT_SUCCESS_RESULT = '角色分配权限成功';
 
+    /** 分类相关 **/
+    const CATEGORY_GET_LIST_ERROR_TYPE_ERROR = "type值类型错误";
+    const CATEGORY_GET_LIST_ERROR_PAGE_NUM_ERROR = "页码值类型错误";
+    const CATEGORY_GET_LIST_ERROR_PAGE_SIZE_ERROR = "信息条数值类型错误";
+    const CATEGORY_GET_LIST_ERROR_RESULT = "分类列表获取失败,请重试";
+    const CATEGORY_GET_LIST_SUCCESS_RESULT = "分类列表获取成功";
+
 }

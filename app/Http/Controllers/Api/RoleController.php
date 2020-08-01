@@ -156,6 +156,15 @@ class RoleController extends BaseController
         return $this->jsonReturnElse($roleService->deleteRightOfRole($param));
     }
 
+    /**
+     * @auther zlq
+     * @create_time 2020/8/1 15:55
+     * @description 角色分配权限
+     * @param $roleId 角色ID
+     * @param Request $request
+     * @param RoleService $roleService
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function allowRightToRole($roleId, Request $request, RoleService $roleService)
     {
         $rids = $request->post('rids');

@@ -716,8 +716,8 @@ type=tree
 | 参数名   | 参数说明           | 备注                                                         |
 | -------- | ------------------ | ------------------------------------------------------------ |
 | type     | [1,2,3]            | 值：1，2，3 分别表示显示一层二层三层分类列表<br />【可选参数】如果不传递，则默认获取所有级别的分类 |
-| pagenum  | 当前页码值         | 【可选参数】如果不传递，则默认获取所有分类                   |
-| pagesize | 每页显示多少条数据 | 【可选参数】如果不传递，则默认获取所有分类                   |
+| pageNum  | 当前页码值         | 【可选参数】如果不传递，则默认获取所有分类                   |
+| pageSize | 每页显示多少条数据 | 【可选参数】如果不传递，则默认获取所有分类                   |
 
 - 响应参数
 
@@ -732,40 +732,44 @@ type=tree
 
 ```json
 {
-    "data": [
-        {
-            "cat_id": 1,
-            "cat_name": "大家电",
-            "cat_pid": 0,
-            "cat_level": 0,
-            "cat_deleted": false,
-            "children": [
-                {
-                    "cat_id": 3,
-                    "cat_name": "电视",
-                    "cat_pid": 1,
-                    "cat_level": 1,
-                    "cat_deleted": false,
-                    "children": [
-                        {
-                            "cat_id": 6,
-                            "cat_name": "曲面电视",
-                            "cat_pid": 3,
-                            "cat_level": 2,
-                            "cat_deleted": false
-                        },
-                        {
-                            "cat_id": 7,
-                            "cat_name": "海信",
-                            "cat_pid": 3,
-                            "cat_level": 2,
-                            "cat_deleted": false
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
+    "data": {
+        "data"：[
+            {
+                "cat_id": 1,
+                "cat_name": "大家电",
+                "cat_pid": 0,
+                "cat_level": 0,
+                "cat_deleted": false,
+                "children": [
+                    {
+                        "cat_id": 3,
+                        "cat_name": "电视",
+                        "cat_pid": 1,
+                        "cat_level": 1,
+                        "cat_deleted": false,
+                        "children": [
+                            {
+                                "cat_id": 6,
+                                "cat_name": "曲面电视",
+                                "cat_pid": 3,
+                                "cat_level": 2,
+                                "cat_deleted": false
+                            },
+                            {
+                                "cat_id": 7,
+                                "cat_name": "海信",
+                                "cat_pid": 3,
+                                "cat_level": 2,
+                                "cat_deleted": false
+                            }
+                        ]
+                    }
+                ]
+            }
+    	]，
+		"totalpage": 10,
+		"pageNum": 1,
+	},
     "meta": {
         "msg": "获取成功",
         "status": 200

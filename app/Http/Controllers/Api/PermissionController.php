@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiConst\BaseConst;
-use App\Http\Controllers\Controller;
 use App\Service\PermissionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -41,7 +40,6 @@ class PermissionController extends BaseController
         if (($param['type'] !== 'tree')  && ($param['type'] !== 'list')) {
             return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, BaseConst::PERMISSION_ERROR_TYPE_USELESS);
         }
-        $data = $permissionService->getPermissionList($param);
-        return $this->jsonReturnElse($data);
+        return $this->jsonReturnElse($permissionService->getPermissionList($param));
     }
 }

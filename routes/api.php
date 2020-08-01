@@ -16,8 +16,6 @@ use Illuminate\Http\Request;
 Route::namespace('Api')->prefix('/private/v1/')->group(function() {
     Route::post('login', 'AuthController@login');
 
-
-
     Route::group([
         'middleware' => 'auth:api'
     ], function () {
@@ -56,6 +54,9 @@ Route::namespace('Api')->prefix('/private/v1/')->group(function() {
         Route::delete('roles/{roleId}/rights/{rightId}', 'RoleController@deleteRightOfRole');
         // 角色授权
         Route::post('roles/{roleId}/rights', 'RoleController@allowRightToRole');
+        // 分类相关
+        // 获取分类列表
+        Route::get('categories', 'CategoryController@getCategoryList');
     });
 });
 

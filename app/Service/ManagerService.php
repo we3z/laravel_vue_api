@@ -8,6 +8,7 @@
 
 namespace App\Service;
 use App\ApiConst\BaseConst;
+use App\Model\Role;
 use Carbon\Carbon;
 use App\Model\User;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ class ManagerService
     {
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials)) {
-            return ['code' => BaseConst::$HTTP_ERROR_UNAUTHORIZED_CODE, 'msg' => BaseConst::$LOGIN_ERROR_MSG, 'data' => ''];
+            return ['code' => BaseConst::HTTP_ERROR_UNAUTHORIZED_CODE, 'msg' => BaseConst::LOGIN_ERROR_MSG, 'data' => ''];
         }
         $user = request()->user();
         $tokenResult = $user->createToken('Personal Access Token');
@@ -35,7 +36,7 @@ class ManagerService
         $token->save();
         $data = $user;
         $data['token'] = 'Bearer '. $tokenResult->accessToken;
-        return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$LOGIN_SUCCESS_MSG, 'data' => $data];
+        return ['code' => BaseConst::HTTP_SUCCESS_CODE, 'msg' => BaseConst::LOGIN_SUCCESS_MSG, 'data' => $data];
     }
 
     /**
@@ -77,8 +78,8 @@ class ManagerService
             $response['users'] = $user_list;
         }
         return [
-            'code' => BaseConst::$HTTP_SUCCESS_CODE,
-            'msg' => BaseConst::$USER_SUCCESS_GET_DATA,
+            'code' => BaseConst::HTTP_SUCCESS_CODE,
+            'msg' => BaseConst::USER_SUCCESS_GET_DATA,
             'data' => $response
         ];
     }
@@ -100,9 +101,9 @@ class ManagerService
         $result = $user->save();
         if ($result) {
             $userData = $user->toArray();
-            return ['code' => BaseConst::$HTTP_SUCCESS_CREATE_CODE, 'msg' => BaseConst::$ADD_USER_SUCCESS_RESULT, 'data' => $userData];
+            return ['code' => BaseConst::HTTP_SUCCESS_CREATE_CODE, 'msg' => BaseConst::ADD_USER_SUCCESS_RESULT, 'data' => $userData];
         } else {
-            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$ADD_USER_ERROR_RESULT, 'data' => []];
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::ADD_USER_ERROR_RESULT, 'data' => []];
         }
     }
 
@@ -117,16 +118,16 @@ class ManagerService
     {
         $userData = User::query()->find($param['uid'])->toArray();
         if (empty($userData)) {
-            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$CHANGE_USER_STATUS_ERROR_USER_DATA, 'data' => []];
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::CHANGE_USER_STATUS_ERROR_USER_DATA, 'data' => []];
         }
         $status = $param['type'] ? 1 : 0;
         if ($userData['status'] !== $status) {
             $result =  User::query()->where('id', $param['uid'])->update(['status' => $status]);
             if (!$result) {
-                return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$CHANGE_USER_STATUS_ERROR_RESULT, 'data' => []];
+                return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::CHANGE_USER_STATUS_ERROR_RESULT, 'data' => []];
             }
         }
-        return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$CHANGE_USER_STATUS_SUCCESS_RESULT, 'data' => []];
+        return ['code' => BaseConst::HTTP_SUCCESS_CODE, 'msg' => BaseConst::CHANGE_USER_STATUS_SUCCESS_RESULT, 'data' => []];
     }
 
     /**
@@ -140,7 +141,7 @@ class ManagerService
     {
         $userData = User::query()->find(($param['id']))->toArray();
         if (empty($userData)) {
-            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$GET_USER_INFO_ERROR_RESULT, 'data' => []];
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::GET_USER_INFO_ERROR_RESULT, 'data' => []];
         }
         $userInfo = [
             'id' => $userData['id'],
@@ -149,7 +150,7 @@ class ManagerService
             'mobile' => $userData['mobile'],
             'email' => $userData['email'],
         ];
-        return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$GET_USER_INFO_SUCCESS_RESULT, 'data' =>$userInfo];
+        return ['code' => BaseConst::HTTP_SUCCESS_CODE, 'msg' => BaseConst::GET_USER_INFO_SUCCESS_RESULT, 'data' =>$userInfo];
     }
 
     /**
@@ -162,18 +163,18 @@ class ManagerService
     public function editAdminUserInfo($param)
     {
         if (!$param['email'] && !$param['mobile'] ) {
-            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$EDIT_USER_INFO_ERROR_RESULT, 'data' => []];
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::EDIT_USER_INFO_ERROR_RESULT, 'data' => []];
         }
         $userData = User::query()->find(($param['id']))->toArray();
         if (empty($userData)) {
-            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$EDIT_USER_INFO_ERROR_RESULT, 'data' => []];
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::EDIT_USER_INFO_ERROR_RESULT, 'data' => []];
         }
         if (($param['email'] == $userData['email']) && ($param['mobile'] == $userData['mobile'])) {
-            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$EDIT_USER_INFO_ERROR_RESULT, 'data' => []];
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::EDIT_USER_INFO_ERROR_RESULT, 'data' => []];
         }
         $result = User::query()->where('id', $param['id'])->update(['email' => $param['email'], 'mobile' => $param['mobile']]);
         if (!$result) {
-            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$EDIT_USER_INFO_ERROR_RESULT, 'data' => []];
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::EDIT_USER_INFO_ERROR_RESULT, 'data' => []];
         }
         $userData = User::query()->find(($param['id']))->toArray();
         $userInfo = [
@@ -183,7 +184,7 @@ class ManagerService
             'mobile' => $userData['mobile'],
             'email' => $userData['email'],
         ];
-        return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$EDIT_USER_INFO_SUCCESS_RESULT, 'data' => $userInfo];
+        return ['code' => BaseConst::HTTP_SUCCESS_CODE, 'msg' => BaseConst::EDIT_USER_INFO_SUCCESS_RESULT, 'data' => $userInfo];
     }
 
     /**
@@ -195,14 +196,48 @@ class ManagerService
      */
     public function deleteAdminUser($param)
     {
-        $userData = User::query()->find(($param['id']))->toArray();
+        $userData = User::query()->find($param['id'])->toArray();
         if (empty($userData)) {
-            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$DELETE_USER_ERROR_RESULT, 'data' => []];
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::DELETE_USER_ERROR_RESULT, 'data' => []];
         }
         $result = User::query()->where('id', $param['id'])->delete();
         if (!$result) {
-            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$DELETE_USER_ERROR_RESULT, 'data' => []];
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::DELETE_USER_ERROR_RESULT, 'data' => []];
         }
-        return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$DELETE_USER_SUCCESS_RESULT, 'data' => []];
+        return ['code' => BaseConst::HTTP_SUCCESS_CODE, 'msg' => BaseConst::DELETE_USER_SUCCESS_RESULT, 'data' => []];
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/8/1 14:40
+     * @description 用户分配权限
+     * @param $param
+     * @return array
+     */
+    public function allowAdminUserRole($param)
+    {
+        $userId = $param['userId'];
+        $roleId = $param['roleId'];
+        $userData = User::query()->find($userId)->toArray();
+        if (empty($userData)) {
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::ALLOW_USER_ROLE_ERROR_NO_USER_INFO, 'data' => []];
+        }
+        $roleData = Role::query()->find($roleId)->toArray();
+        if (empty($roleData)) {
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::ALLOW_USER_ROLE_ERROR_NO_ROLE_INFO, 'data' => []];
+        }
+        $res = User::query()->where('id', $userId)->update(['role_id' => $roleId]);
+        if ($res) {
+            $data = [
+                'id' => $userData['id'],
+                'rid' => $roleId,
+                'username' => $userData['name'],
+                'mobile' => $userData['mobile'],
+                'email' => $userData['email'],
+            ];
+            return ['code' => BaseConst::HTTP_SUCCESS_CODE, 'msg' => BaseConst::ALLOW_USER_ROLE_SUCCESS_RESULT, 'data' => $data];
+        } else {
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::ALLOW_USER_ROLE_ERROR_RESULT, 'data' => []];
+        }
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\ApiConst\BaseConst;
-use App\Http\Controllers\Controller;
 use App\Service\ManagerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -26,18 +25,17 @@ class ManagerController extends BaseController
             'pagesize' => 'required|integer|min:1',
             'pagenum' => 'required|integer|min:1'
         ], [
-            'pagesize.required' => BaseConst::$USER_ERROR_NO_PAGE_SIZE,
-            'pagesize.integer' => BaseConst::$USER_ERROR_PAGE_SIZE_NOT_INT,
-            'pagesize.min' => BaseConst::$USER_ERROR_PAGE_SIZE_MIN,
-            'pagenum.required' => BaseConst::$USER_ERROR_NO_PAGE_NUM,
-            'pagenum.integer' => BaseConst::$USER_ERROR_PAGE_NUM_NOT_INT,
-            'pagenum.min' => BaseConst::$USER_ERROR_PAGE_NUM_MIN,
+            'pagesize.required' => BaseConst::USER_ERROR_NO_PAGE_SIZE,
+            'pagesize.integer' => BaseConst::USER_ERROR_PAGE_SIZE_NOT_INT,
+            'pagesize.min' => BaseConst::USER_ERROR_PAGE_SIZE_MIN,
+            'pagenum.required' => BaseConst::USER_ERROR_NO_PAGE_NUM,
+            'pagenum.integer' => BaseConst::USER_ERROR_PAGE_NUM_NOT_INT,
+            'pagenum.min' => BaseConst::USER_ERROR_PAGE_NUM_MIN,
         ]);
         if ($validator->fails()) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first(), []);
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first(), []);
         }
-        $data = $managerService->getAdminUserList($param);
-        return $this->jsonReturnElse($data);
+        return $this->jsonReturnElse($managerService->getAdminUserList($param));
     }
 
     /**
@@ -57,21 +55,20 @@ class ManagerController extends BaseController
             'password' => 'required|min:3|max:15',
             'email' => 'required|email|unique:users'
         ], [
-            'username.required' => BaseConst::$ADD_USER_ERROR_NO_USERNAME,
-            'username.max' => BaseConst::$ADD_USER_ERROR_USERNAME_MIN_AND_MAX,
-            'username.min' => BaseConst::$ADD_USER_ERROR_USERNAME_MIN_AND_MAX,
-            'password.required' => BaseConst::$ADD_USER_ERROR_NO_PASSWORD,
-            'password.max' => BaseConst::$ADD_USER_ERROR_PASSWORD_MIN_AND_MAX,
-            'password.min' => BaseConst::$ADD_USER_ERROR_PASSWORD_MIN_AND_MAX,
-            'email.required' => BaseConst::$ADD_USER_ERROR_NO_EMAIL,
-            'email.email' => BaseConst::$ADD_USER_ERROR_EMAIL_FORMAT,
-            'email.unique' => BaseConst::$ADD_USER_ERROR_EMAIL_UNIQUE,
+            'username.required' => BaseConst::ADD_USER_ERROR_NO_USERNAME,
+            'username.max' => BaseConst::ADD_USER_ERROR_USERNAME_MIN_AND_MAX,
+            'username.min' => BaseConst::ADD_USER_ERROR_USERNAME_MIN_AND_MAX,
+            'password.required' => BaseConst::ADD_USER_ERROR_NO_PASSWORD,
+            'password.max' => BaseConst::ADD_USER_ERROR_PASSWORD_MIN_AND_MAX,
+            'password.min' => BaseConst::ADD_USER_ERROR_PASSWORD_MIN_AND_MAX,
+            'email.required' => BaseConst::ADD_USER_ERROR_NO_EMAIL,
+            'email.email' => BaseConst::ADD_USER_ERROR_EMAIL_FORMAT,
+            'email.unique' => BaseConst::ADD_USER_ERROR_EMAIL_UNIQUE,
         ]);
         if ($validator->fails()) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first(), []);
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first(), []);
         }
-        $data = $managerService->addAdminUser($param);
-        return $this->jsonReturnElse($data);
+        return $this->jsonReturnElse($managerService->addAdminUser($param));
     }
 
     /**
@@ -91,16 +88,15 @@ class ManagerController extends BaseController
             'uid' => 'required|integer',
             'type' => 'required|boolean',
         ], [
-            'uid.required' => BaseConst::$CHANGE_USER_STATUS_ERROR_NO_UID,
-            'uid.integer' => BaseConst::$CHANGE_USER_STATUS_ERROR_UID_FORMAT,
-            'type.required' => BaseConst::$CHANGE_USER_STATUS_ERROR_NO_TYPE,
-            'type.boolean' => BaseConst::$CHANGE_USER_STATUS_ERROR_TYPE_FORMAT,
+            'uid.required' => BaseConst::CHANGE_USER_STATUS_ERROR_NO_UID,
+            'uid.integer' => BaseConst::CHANGE_USER_STATUS_ERROR_UID_FORMAT,
+            'type.required' => BaseConst::CHANGE_USER_STATUS_ERROR_NO_TYPE,
+            'type.boolean' => BaseConst::CHANGE_USER_STATUS_ERROR_TYPE_FORMAT,
         ]);
         if ($validator->fails()) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first(), []);
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first(), []);
         }
-        $data = $managerService->changeAdminUserState($param);
-        return $this->jsonReturnElse($data);
+        return $this->jsonReturnElse($managerService->changeAdminUserState($param));
     }
 
     /**
@@ -118,14 +114,13 @@ class ManagerController extends BaseController
         $validator = Validator::make($param, [
            'id' => 'required|integer'
         ], [
-            'id.required' => BaseConst::$GET_USER_INFO_ERROR_NO_ID,
-            'id.integer' => BaseConst::$GET_USER_INFO_ERROR_ID_FORMAT,
+            'id.required' => BaseConst::GET_USER_INFO_ERROR_NO_ID,
+            'id.integer' => BaseConst::GET_USER_INFO_ERROR_ID_FORMAT,
         ]);
         if ($validator->fails()) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
         }
-        $data = $managerService->getAdminUserInfo($param);
-        return $this->jsonReturnElse($data);
+        return $this->jsonReturnElse($managerService->getAdminUserInfo($param));
     }
 
     /**
@@ -150,18 +145,17 @@ class ManagerController extends BaseController
             'email' => 'required|email',
             'mobile' => 'required',
         ], [
-            'id.required' => BaseConst::$EDIT_USER_INFO_ERROR_NO_ID,
-            'id.integer' => BaseConst::$EDIT_USER_INFO_ERROR_ID_FORMAT,
-            'email.required' => BaseConst::$EDIT_USER_INFO_ERROR_NO_EMAIL,
-            'email.email' => BaseConst::$EDIT_USER_INFO_ERROR_EMAIL_FORMAT,
-             // 'email.unique' => BaseConst::$EDIT_USER_INFO_ERROR_EMAIL_UNIQUE,
-            'mobile.required' => BaseConst::$EDIT_USER_INFO_ERROR_NO_MOBILE,
+            'id.required' => BaseConst::EDIT_USER_INFO_ERROR_NO_ID,
+            'id.integer' => BaseConst::EDIT_USER_INFO_ERROR_ID_FORMAT,
+            'email.required' => BaseConst::EDIT_USER_INFO_ERROR_NO_EMAIL,
+            'email.email' => BaseConst::EDIT_USER_INFO_ERROR_EMAIL_FORMAT,
+             // 'email.unique' => BaseConst::EDIT_USER_INFO_ERROR_EMAIL_UNIQUE,
+            'mobile.required' => BaseConst::EDIT_USER_INFO_ERROR_NO_MOBILE,
         ]);
         if ($validator->fails()) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
         }
-        $data = $managerService->editAdminUserInfo($param);
-        return $this->jsonReturnElse($data);
+        return $this->jsonReturnElse($managerService->editAdminUserInfo($param));
     }
 
     /**
@@ -179,13 +173,32 @@ class ManagerController extends BaseController
         $validator = Validator::make($param, [
             'id' => 'required|integer'
         ], [
-            'id.required' => BaseConst::$DELETE_USER_ERROR_NO_ID,
-            'id.integer' => BaseConst::$DELETE_USER_ERROR_ID_FORMAT,
+            'id.required' => BaseConst::DELETE_USER_ERROR_NO_ID,
+            'id.integer' => BaseConst::DELETE_USER_ERROR_ID_FORMAT,
         ]);
         if ($validator->fails()) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
         }
-        $data = $managerService->deleteAdminUser($param);
-        return $this->jsonReturnElse($data);
+        return $this->jsonReturnElse($managerService->deleteAdminUser($param));
+    }
+
+    public function allowAdminUserRole($id, Request $request, ManagerService $managerService)
+    {
+        $roleId = $request->input('rid');
+        $param = [ 'userId' => $id, 'roleId' => $roleId ];
+        // 验证数据
+        $validator = Validator::make($param, [
+            'userId' => 'required|integer',
+            'roleId' => 'required|integer',
+        ], [
+            'userId.required' => BaseConst::ALLOW_USER_ROLE_ERROR_NO_USER_ID,
+            'userId.integer' => BaseConst::ALLOW_USER_ROLE_ERROR_USER_ID_FORMAT,
+            'roleId.required' => BaseConst::ALLOW_USER_ROLE_ERROR_NO_ROLE_ID,
+            'roleId.integer' => BaseConst::ALLOW_USER_ROLE_ERROR_ROLE_ID_FORMAT,
+        ]);
+        if ($validator->fails()) {
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+        }
+        return $this->jsonReturnElse($managerService->allowAdminUserRole($param));
     }
 }

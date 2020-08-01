@@ -25,7 +25,7 @@ class PermissionService
             $query->select('ps_id','ps_api_path');
         }])->where('ps_level', 1)->orWhere('ps_level', 3)->get()->toArray();
         if (empty($list)) {
-            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$PERMISSION_ERROR_NO_MENU_DATA, 'data' => []];
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::PERMISSION_ERROR_NO_MENU_DATA, 'data' => []];
         }
         // 处理1,2级菜单
         $box = [];
@@ -48,7 +48,7 @@ class PermissionService
                 $parent_box[$key]['children'] = $box[$val['id']];
             }
         }
-        return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$PERMISSION_SUCCESS_GET_MENU_DATA, 'data' => $parent_box];
+        return ['code' => BaseConst::HTTP_SUCCESS_CODE, 'msg' => BaseConst::PERMISSION_SUCCESS_GET_MENU_DATA, 'data' => $parent_box];
     }
 
     /**
@@ -64,7 +64,7 @@ class PermissionService
             $query->select('ps_id','ps_api_path');
         }])->get()->toArray();
         if (empty($list)) {
-            return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$PERMISSION_ERROR_RESULT, 'data' => []];
+            return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::PERMISSION_ERROR_RESULT, 'data' => []];
         }
         $box = [];
         foreach ($list as $item) {
@@ -78,14 +78,14 @@ class PermissionService
         }
         switch ($param['type']) {
             case 'list' :
-                return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$PERMISSION_SUCCESS_RESULT, 'data' => $box];
+                return ['code' => BaseConst::HTTP_SUCCESS_CODE, 'msg' => BaseConst::PERMISSION_SUCCESS_RESULT, 'data' => $box];
                 break;
             case 'tree':
                 $new = format_data_tree($box);
-                return ['code' => BaseConst::$HTTP_SUCCESS_CODE, 'msg' => BaseConst::$PERMISSION_SUCCESS_RESULT, 'data' => $new];
+                return ['code' => BaseConst::HTTP_SUCCESS_CODE, 'msg' => BaseConst::PERMISSION_SUCCESS_RESULT, 'data' => $new];
                 break;
             default:
-                return ['code' => BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::$PERMISSION_ERROR_RESULT, 'data' => []];
+                return ['code' => BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, 'msg' => BaseConst::PERMISSION_ERROR_RESULT, 'data' => []];
         }
     }
 }

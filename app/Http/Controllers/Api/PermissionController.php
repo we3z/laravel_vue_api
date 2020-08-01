@@ -32,14 +32,14 @@ class PermissionController extends BaseController
         $validator = Validator::make($param, [
             'type' => 'required|string'
         ], [
-            'type.required' => BaseConst::$PERMISSION_ERROR_NO_TYPE,
-            'type.string' => BaseConst::$PERMISSION_ERROR_TYPE_FORMAT,
+            'type.required' => BaseConst::PERMISSION_ERROR_NO_TYPE,
+            'type.string' => BaseConst::PERMISSION_ERROR_TYPE_FORMAT,
         ]);
         if ($validator->fails()) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
         }
         if (($param['type'] !== 'tree')  && ($param['type'] !== 'list')) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, BaseConst::$PERMISSION_ERROR_TYPE_USELESS);
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, BaseConst::PERMISSION_ERROR_TYPE_USELESS);
         }
         $data = $permissionService->getPermissionList($param);
         return $this->jsonReturnElse($data);

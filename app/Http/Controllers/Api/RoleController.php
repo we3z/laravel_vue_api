@@ -37,18 +37,18 @@ class RoleController extends BaseController
             'roleName' => 'required|string|min:2|max:25|unique:sp_role,role_name',
             'roleDesc' => 'required|string|min:2|max:25',
         ],[
-            'roleName.required' => BaseConst::$ROLE_ADD_ERROR_NO_AUTH_NAME,
-            'roleName.string' => BaseConst::$ROLE_ADD_ERROR_AUTH_NAME_FORMAT,
-            'roleName.min' => BaseConst::$ROLE_ADD_ERROR_AUTH_NAME_MIN,
-            'roleName.max' => BaseConst::$ROLE_ADD_ERROR_AUTH_NAME_MAX,
-            'roleName.unique' => BaseConst::$ROLE_ADD_ERROR_AUTH_NAME_UNIQUE,
-            'roleDesc.required' => BaseConst::$ROLE_ADD_ERROR_NO_AUTH_DESC,
-            'roleDesc.string' => BaseConst::$ROLE_ADD_ERROR_AUTH_DESC_FORMAT,
-            'roleDesc.min' => BaseConst::$ROLE_ADD_ERROR_AUTH_DESC_MIN,
-            'roleDesc.max' => BaseConst::$ROLE_ADD_ERROR_AUTH_DESC_MAX,
+            'roleName.required' => BaseConst::ROLE_ADD_ERROR_NO_AUTH_NAME,
+            'roleName.string' => BaseConst::ROLE_ADD_ERROR_AUTH_NAME_FORMAT,
+            'roleName.min' => BaseConst::ROLE_ADD_ERROR_AUTH_NAME_MIN,
+            'roleName.max' => BaseConst::ROLE_ADD_ERROR_AUTH_NAME_MAX,
+            'roleName.unique' => BaseConst::ROLE_ADD_ERROR_AUTH_NAME_UNIQUE,
+            'roleDesc.required' => BaseConst::ROLE_ADD_ERROR_NO_AUTH_DESC,
+            'roleDesc.string' => BaseConst::ROLE_ADD_ERROR_AUTH_DESC_FORMAT,
+            'roleDesc.min' => BaseConst::ROLE_ADD_ERROR_AUTH_DESC_MIN,
+            'roleDesc.max' => BaseConst::ROLE_ADD_ERROR_AUTH_DESC_MAX,
         ]);
         if ($validator->fails()) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
         }
         return $this->jsonReturnElse($roleService->addRole($param));
     }
@@ -67,11 +67,11 @@ class RoleController extends BaseController
         $validator = Validator::make($param, [
             'id' => 'required|integer'
         ], [
-            'id.required' => BaseConst::$ROLE_GET_INFO_ERROR_NO_ID,
-            'id.integer' => BaseConst::$ROLE_GET_INFO_ERROR_ID_FORMAT,
+            'id.required' => BaseConst::ROLE_GET_INFO_ERROR_NO_ID,
+            'id.integer' => BaseConst::ROLE_GET_INFO_ERROR_ID_FORMAT,
         ]);
         if ($validator->fails()) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
         }
         return $this->jsonReturnElse($roleService->getRoleInfo($param));
     }
@@ -95,14 +95,14 @@ class RoleController extends BaseController
             'roleName' => 'required|string',
             'roleDesc' => 'string'
         ], [
-            'id.required' => BaseConst::$ROLE_EDIT_ERROR_NO_ID,
-            'id.integer' => BaseConst::$ROLE_EDIT_ERROR_ID_FORMAT,
-            'roleName.required' => BaseConst::$ROLE_EDIT_ERROR_NO_NAME,
-            'roleName.string' => BaseConst::$ROLE_EDIT_ERROR_NAME_FORMAT,
-            'roleDesc.string' => BaseConst::$ROLE_EDIT_ERROR_DESC_FORMAT,
+            'id.required' => BaseConst::ROLE_EDIT_ERROR_NO_ID,
+            'id.integer' => BaseConst::ROLE_EDIT_ERROR_ID_FORMAT,
+            'roleName.required' => BaseConst::ROLE_EDIT_ERROR_NO_NAME,
+            'roleName.string' => BaseConst::ROLE_EDIT_ERROR_NAME_FORMAT,
+            'roleDesc.string' => BaseConst::ROLE_EDIT_ERROR_DESC_FORMAT,
         ]);
         if ($validator->fails()) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
         }
         return $this->jsonReturnElse($roleService->updateRole($param));
     }
@@ -120,12 +120,59 @@ class RoleController extends BaseController
         $validator = Validator::make(['id' => $id], [
             'id' => 'required|integer'
         ], [
-            'id.required' => BaseConst::$ROLE_DELETE_ERROR_NO_ID,
-            'id.integer' => BaseConst::$ROLE_DELETE_ERROR_ID_FORMAT,
+            'id.required' => BaseConst::ROLE_DELETE_ERROR_NO_ID,
+            'id.integer' => BaseConst::ROLE_DELETE_ERROR_ID_FORMAT,
         ]);
         if ($validator->fails()) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
         }
         return $this->jsonReturnElse($roleService->deleteRole($id));
+    }
+
+    /**
+     * @auther zlq
+     * @create_time 2020/8/1 10:59
+     * @description 删除角色权限
+     * @param $roleId 角色ID
+     * @param $rightId 权限ID
+     * @param RoleService $roleService
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteRightOfRole($roleId, $rightId, RoleService $roleService)
+    {
+        $param = [ 'roleId' => $roleId, 'rightId' => $rightId ];
+        $validator = Validator::make($param, [
+            'roleId' => 'required|integer',
+            'rightId' => 'required|integer',
+        ], [
+            'roleId.required' => BaseConst::ROLE_DELETE_RIGHT_ERROR_NO_ROLE_ID,
+            'roleId.integer' => BaseConst::ROLE_DELETE_RIGHT_ERROR_ROLE_ID_FORMAT,
+            'rightId.required' => BaseConst::ROLE_DELETE_RIGHT_ERROR_NO_RIGHT_ID,
+            'rightId.integer' => BaseConst::ROLE_DELETE_RIGHT_ERROR_RIGHT_ID_FORMAT,
+        ]);
+        if ($validator->fails()) {
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+        }
+        return $this->jsonReturnElse($roleService->deleteRightOfRole($param));
+    }
+
+    public function allowRightToRole($roleId, Request $request, RoleService $roleService)
+    {
+        $rids = $request->post('rids');
+        $rids = trim(trim($rids), ',');
+        $param = [ 'roleId' => $roleId,  'rids' => $rids ];
+        $validator = Validator::make($param, [
+            'roleId' => 'required|integer',
+            'rids' => 'required|string',
+        ], [
+            'roleId.required' => BaseConst::ROLE_ALLOW_RIGHT_ERROR_NO_ROLE_ID,
+            'roleId.integer' => BaseConst::ROLE_ALLOW_RIGHT_ERROR_ROLE_ID_FORMAT,
+            'rids.required' => BaseConst::ROLE_ALLOW_RIGHT_ERROR_NO_RIGHT_IDS,
+            'rids.string' => BaseConst::ROLE_ALLOW_RIGHT_ERROR_RIGHT_IDS_FORMAT,
+        ]);
+        if ($validator->fails()) {
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first());
+        }
+        return $this->jsonReturnElse($roleService->allowRightToRole($param));
     }
 }

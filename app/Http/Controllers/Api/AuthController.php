@@ -25,16 +25,15 @@ class AuthController extends BaseController
             'email' => 'required|string|email',
             'password' => 'required|string',
         ], [
-            'email.required' => BaseConst::$LOGIN_NO_EMAIL_MSG,
-            'email.string' => BaseConst::$LOGIN_EMAIL_TYPE_MSG,
-            'email.email' => BaseConst::$LOGIN_EMAIL_FORMAT_MSG,
-            'password.required' => BaseConst::$LOGIN_NO_PASSWORD_MSG,
-            'password.string' => BaseConst::$LOGIN_PASSWORD_TYPE_MSG,
+            'email.required' => BaseConst::LOGIN_NO_EMAIL_MSG,
+            'email.string' => BaseConst::LOGIN_EMAIL_TYPE_MSG,
+            'email.email' => BaseConst::LOGIN_EMAIL_FORMAT_MSG,
+            'password.required' => BaseConst::LOGIN_NO_PASSWORD_MSG,
+            'password.string' => BaseConst::LOGIN_PASSWORD_TYPE_MSG,
         ]);
         if ($validator->fails()) {
-            return $this->jsonReturn(BaseConst::$HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first(), []);
+            return $this->jsonReturn(BaseConst::HTTP_ERROR_BAD_REQUEST_CODE, $validator->errors()->first(), []);
         }
-        $data = $managerService->loginAndGetToken();
-        return $this->jsonReturn($data['code'], $data['msg'], $data['data']);
+        return $this->jsonReturnElse($managerService->loginAndGetToken());
     }
 }

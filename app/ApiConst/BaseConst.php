@@ -146,10 +146,19 @@ class BaseConst
     const ROLE_ALLOW_RIGHT_SUCCESS_RESULT = '角色分配权限成功';
 
     /** 分类相关 **/
-    const CATEGORY_GET_LIST_ERROR_TYPE_ERROR = "type值类型错误";
-    const CATEGORY_GET_LIST_ERROR_PAGE_NUM_ERROR = "页码值类型错误";
-    const CATEGORY_GET_LIST_ERROR_PAGE_SIZE_ERROR = "信息条数值类型错误";
+    // 查询分类列表
+    const CATEGORY_GET_LIST_ERROR_TYPE_FORMAT = "type值类型错误";
+    const CATEGORY_GET_LIST_ERROR_PAGE_NUM_FORMAT = "页码值类型错误";
+    const CATEGORY_GET_LIST_ERROR_PAGE_SIZE_FORMAT = "信息条数值类型错误";
     const CATEGORY_GET_LIST_ERROR_RESULT = "分类列表获取失败,请重试";
     const CATEGORY_GET_LIST_SUCCESS_RESULT = "分类列表获取成功";
-
+    // 添加分类
+    const CATEGORY_ADD_ERROR_NO_CAT_PID = "没有传递父级分类ID参数";
+    const CATEGORY_ADD_ERROR_CAT_PID_FORMAT = "父级分类ID参数不正确,请重试";
+    const CATEGORY_ADD_ERROR_NO_CAT_NAME = "没有传递分类名称参数";
+    const CATEGORY_ADD_ERROR_CAT_NAME_FORMAT = "分类名称参数不正确,请重试";
+    const CATEGORY_ADD_ERROR_NO_CAT_LEVEL = "没有传递分类等级参数";
+    const CATEGORY_ADD_ERROR_CAT_LEVEL_FORMAT = "父级分类ID参数不正确,请重试";
+    const CATEGORY_ADD_ERROR_RESULT = "分类添加失败,请重试";
+    const CATEGORY_ADD_SUCCESS_RESULT = "分类添加成功";
 }

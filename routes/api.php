@@ -57,6 +57,8 @@ Route::namespace('Api')->prefix('/private/v1/')->group(function() {
         // 分类相关
         // 获取分类列表
         Route::get('categories', 'CategoryController@getCategoryList');
+        // 添加新分类
+        Route::post('categories', 'CategoryController@addCategory');
     });
 });
 

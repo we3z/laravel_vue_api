@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryService
 {
+    /**
+     * @auther zlq
+     * @create_time 2020/8/3 7:25
+     * @description 获取商品分类列表
+     * @param $param
+     * @return array
+     */
     public function getCategoryList($param)
     {
         if (!$param['type']) {
@@ -103,5 +110,10 @@ class CategoryService
             'msg' => BaseConst::USER_SUCCESS_GET_DATA,
             'data' => $response
         ];
+    }
+
+    public function addCategory($param)
+    {
+
     }
 }

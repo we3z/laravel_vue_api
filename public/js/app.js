@@ -10744,7 +10744,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "/* 全局样式表 */\nhtml, body, #app {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n    min-width: 1366px;\n}\n\n.el-breadcrumb {\n    margin-bottom: 15px;\n    font-size: 12px;\n}\n\n.el-card {\n    box-shadow: 0 1px rgb(0, 0, 0, 0.15) !important;\n}\n\n.el-pagination {\n    margin-top: 15px;\n}\n", ""]);
+exports.push([module.i, "/* 全局样式表 */\nhtml, body, #app {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n    min-width: 1366px;\n}\n\n.content-body {\n    height: 100%;\n}\n\n.el-breadcrumb {\n    margin-bottom: 15px;\n    font-size: 12px;\n}\n\n.el-card {\n    box-shadow: 0 1px rgb(0, 0, 0, 0.15) !important;\n}\n\n.el-pagination {\n    margin-top: 15px;\n}\n", ""]);
 
 // exports
 
@@ -101075,7 +101075,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("router-view")], 1)
+  return _c("div", { staticClass: "content-body" }, [_c("router-view")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true

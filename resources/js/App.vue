@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="content-body">
         <!--路由引入的组件将在这里被渲染-->
         <router-view></router-view>
     </div>

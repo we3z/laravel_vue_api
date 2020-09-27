@@ -6,6 +6,10 @@ html, body, #app {
     min-width: 1366px;
 }
 
+.content-body {
+    height: 100%;
+}
+
 .el-breadcrumb {
     margin-bottom: 15px;
     font-size: 12px;

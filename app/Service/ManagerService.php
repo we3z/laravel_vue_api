@@ -8,9 +8,9 @@
 
 namespace App\Service;
 use App\ApiConst\BaseConst;
-use App\Model\Role;
+use App\Models\Role;
 use Carbon\Carbon;
-use App\Model\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ManagerService

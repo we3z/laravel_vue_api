@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Model\Role;
 use App\Service\RoleService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

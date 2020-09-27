@@ -2,7 +2,7 @@
 namespace App\Service;
 
 use app\ApiConst\BaseConst;
-use App\Model\GoodsCategory;
+use App\Models\GoodsCategory;
 use Illuminate\Support\Facades\DB;
 
 class CategoryService

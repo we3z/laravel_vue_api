@@ -10,8 +10,8 @@ namespace App\Service;
 
 
 use App\ApiConst\BaseConst;
-use App\Model\Permission;
-use App\Model\Role;
+use App\Models\Permission;
+use App\Models\Role;
 
 class RoleService
 {

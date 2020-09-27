@@ -2,7 +2,7 @@
 namespace App\Service;
 
 use App\ApiConst\BaseConst;
-use App\Model\Permission;
+use App\Models\Permission;
 
 class PermissionService
 {

@@ -59,6 +59,19 @@ Route::namespace('Api')->prefix('/private/v1/')->group(function() {
         Route::get('categories', 'CategoryController@getCategoryList');
         // 添加新分类
         Route::post('categories', 'CategoryController@addCategory');
+        // 查询分类数据
+        Route::get('categories/{id}', 'CategoryController@getCategory');
+        // 编辑分类数据
+        Route::put('categories/{id}', 'CategoryController@editCategory');
+        // 删除分类数据
+        Route::delete('categories/{id}', 'CategoryController@deleteCategory');
+        /**分类属性参数相关**/
+        // 获取某分类的分类属性
+        Route::get('categories/{id}/attributes', 'CategoryController@getCategoryAttr');
+        // 添加某分类的分类属性
+        Route::post('categories/{id}/attributes', 'CategoryController@addCategoryAttr');
+        // 删除某分类下某属性
+        Route::delete('categories/{id}/attributes/{attrid}', 'CategoryController@deleteCategoryAttr');
     });
 });
 

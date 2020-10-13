@@ -10744,7 +10744,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "/* 全局样式表 */\nhtml, body, #app {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n    min-width: 1366px;\n}\n\n.content-body {\n    height: 100%;\n}\n\n.el-breadcrumb {\n    margin-bottom: 15px;\n    font-size: 12px;\n}\n\n.el-card {\n    box-shadow: 0 1px rgb(0, 0, 0, 0.15) !important;\n}\n\n.el-pagination {\n    margin-top: 15px;\n}\n", ""]);
+exports.push([module.i, "/* 全局样式表 */\r\nhtml, body, #app {\r\n    height: 100%;\r\n    margin: 0;\r\n    padding: 0;\r\n    min-width: 1366px;\r\n}\r\n\r\n.content-body {\r\n    height: 100%;\r\n}\r\n\r\n.el-breadcrumb {\r\n    margin-bottom: 15px;\r\n    font-size: 12px;\r\n}\r\n\r\n.el-card {\r\n    box-shadow: 0 1px rgb(0, 0, 0, 0.15) !important;\r\n}\r\n\r\n.el-pagination {\r\n    margin-top: 15px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -107129,8 +107129,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$prompt = element_ui__WEBPA
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\art\laravel_vue_api\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\art\laravel_vue_api\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\aware\laravue\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\aware\laravue\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

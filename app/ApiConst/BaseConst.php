@@ -159,6 +159,54 @@ class BaseConst
     const CATEGORY_ADD_ERROR_CAT_NAME_FORMAT = "分类名称参数不正确,请重试";
     const CATEGORY_ADD_ERROR_NO_CAT_LEVEL = "没有传递分类等级参数";
     const CATEGORY_ADD_ERROR_CAT_LEVEL_FORMAT = "父级分类ID参数不正确,请重试";
+    const CATEGORY_ADD_ERROR_NO_PARENT_CATEGORY = "父级分类不存在,请重试";
+    const CATEGORY_ADD_ERROR_ERROR_CATEGORY_LEVEL = "父级分类不存在,请重试";
     const CATEGORY_ADD_ERROR_RESULT = "分类添加失败,请重试";
     const CATEGORY_ADD_SUCCESS_RESULT = "分类添加成功";
+    // 查询分类
+    const CATEGORY_GET_INFO_ERROR_NO_CAT_ID = "没有传递分类ID参数";
+    const CATEGORY_GET_INFO_ERROR_CAT_ID_FORMAT = "分类ID参数格式不正确";
+    const CATEGORY_GET_INFO_ERROR_NO_CATEGORY_DATA = "该分类信息不存在，请重试";
+    const CATEGORY_GET_INFO_ERROR_RESULT = "分类查询失败,请重试";
+    const CATEGORY_GET_INFO_SUCCESS_RESULT = "分类查询成功";
+    // 分类编辑
+    const CATEGORY_EDIT_ERROR_NO_CAT_ID = "没有传递分类ID参数";
+    const CATEGORY_EDIT_ERROR_CAT_ID_FORMAT = "分类ID参数格式不正确";
+    const CATEGORY_EDIT_NO_CAT_NAME = "没有传递分类名称参数";
+    const CATEGORY_EDIT_CAT_NAME_FORMAT = "分类名称参数不正确,请重试";
+    const CATEGORY_EDIT_ERROR_NO_CATEGORY_DATA = "分类信息不存在，请重试";
+    const CATEGORY_EDIT_ERROR_RESULT = "分类编辑失败,请重试";
+    const CATEGORY_EDIT_SUCCESS_RESULT = "分类编辑成功";
+    // 删除分类
+    const CATEGORY_DELETE_ERROR_NO_CAT_ID = "没有传递分类ID参数";
+    const CATEGORY_DELETE_ERROR_CAT_ID_FORMAT = "分类ID参数格式不正确";
+    const CATEGORY_DELETE_ERROR_RESULT = "分类删除失败,请重试";
+    const CATEGORY_DELETE_SUCCESS_RESULT = "分类删除成功";
+    // 查询分类及相关分类属性
+    const CATEGORY_GET_ATTR_ERROR_NO_CAT_ID = "没有传递分类ID参数";
+    const CATEGORY_GET_ATTR_ERROR_CAT_ID_FORMAT = "分类ID参数格式不正确";
+    const CATEGORY_GET_ATTR_ERROR_NO_SEL = "没有传递sel属性类型参数";
+    const CATEGORY_GET_ATTR_ERROR_SEL_FORMAT = "传递sel属性参数值不正确";
+    const CATEGORY_GET_ATTR_ERROR_NO_CATEGORY_DATA = "该分类信息不存在，请重试";
+    const CATEGORY_GET_ATTR_ERROR_RESULT = "分类查询失败,请重试";
+    const CATEGORY_GET_ATTR_SUCCESS_RESULT = "分类查询成功";
+    // 添加分类相关分类属性
+    const CATEGORY_ADD_ATTR_ERROR_NO_CAT_ID = "没有传递分类ID参数";
+    const CATEGORY_ADD_ATTR_ERROR_CAT_ID_FORMAT = "分类ID参数格式不正确";
+    const CATEGORY_ADD_ATTR_ERROR_NO_ATTR_NAME = "没有传递分类名称参数";
+    const CATEGORY_ADD_ATTR_ERROR_ATTR_NAME_FORMAT = "分类名称参数格式不正确";
+    const CATEGORY_ADD_ATTR_ERROR_NO_SEL = "没有传递sel属性类型参数";
+    const CATEGORY_ADD_ATTR_ERROR_SEL_FORMAT = "传递sel属性参数值不正确";
+    const CATEGORY_ADD_ATTR_ERROR_VALS_FORMAT = "传递可选值参数值不正确";
+    const CATEGORY_ADD_ATTR_ERROR_NO_CATEGORY_DATA = "该分类信息不存在，请重试";
+    const CATEGORY_ADD_ATTR_ERROR_RESULT = "分类属性添加失败,请重试";
+    const CATEGORY_ADD_ATTR_SUCCESS_RESULT = "分类属性添加成功";
+    // 删除分类对应相关属性
+    const CATEGORY_ATTR_DELETE_ERROR_NO_CAT_ID = "没有传递分类ID参数";
+    const CATEGORY_ATTR_DELETE_ERROR_CAT_ID_FORMAT = "分类ID参数格式不正确";
+    const CATEGORY_ATTR_DELETE_ERROR_NO_ATTR_ID = "没有传递属性ID参数";
+    const CATEGORY_ATTR_DELETE_ERROR_ATTR_ID_FORMAT = "属性ID参数格式不正确";
+    const CATEGORY_ATTR_DELETE_ERROR_NO_ATTR = "分类属性不存在，请重试";
+    const CATEGORY_ATTR_DELETE_ERROR_RESULT = "分类属性删除失败,请重试";
+    const CATEGORY_ATTR_DELETE_SUCCESS_RESULT = "分类属性删除成功";
 }
